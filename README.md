@@ -22,9 +22,9 @@ Le jeu sera développé avec le langage **python** (`version 3.9`) et la fenêtr
 * La position de la tête du serpent sera stockée et mise à jour dans le programme
 * Le corps entier sera stockée dans la map sous forme de tuple de modèle :  
 &nbsp; (`numéro du serpent`, `morceau précédent`, `morceau suivant`)  
-&nbsp; **numéro du serpent**: par défaut 1 s'il y a un seul serpent
-&nbsp; **morceau précédent**: position du morceau de serpent précédent (vers la tête), `None` si c'est la tête
-&nbsp; **morceau suivant**: position du morceau de serpent suivant (vers le bout de la queue) `None` si c'est le bout de la queue
+&nbsp; **numéro du serpent**: par défaut 1 s'il y a un seul serpent  
+&nbsp; **morceau précédent**: position du morceau de serpent précédent (vers la tête), `None` si c'est la tête  
+&nbsp; **morceau suivant**: position du morceau de serpent suivant (vers le bout de la queue) `None` si c'est le bout de la queue  
 
 ## Utilisation
 
