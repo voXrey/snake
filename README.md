@@ -6,6 +6,7 @@ Ce jeu est créé dans le cadre d'un projet en groupe de NSI de niveau première
 
 ## 💻 Développement
 *Pour obtenir la liste des fonctions complète veuillez vous rendre sur ce tableau -> [ici](https://github.com/voXrey/snake/projects/2))
+Ce tableau sera mis à jour au fur et à mesure, toutes les fonctions qui seront utilisées ne sont pas encore répertoriées*
 ### Technologie 🔧
 Le jeu sera développé avec le langage **python** (`version 3.9`) et la fenêtre graphique sera créée à partir de la librairie `tkinter`.
 
