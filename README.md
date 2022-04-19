@@ -45,6 +45,7 @@ Ici sont répertoriées les différentes images nécessaires :
 * Logo = logo du jeu  
 * Background = image de 900x900 px, fond d'écran de la map  
 * Souris = image pour changer l'apparence de la souris sur la fenêtre  
+* Boutons = 1 image par bouton (commencer, recommencer, quitter, reprendre, pause), il faudra cliquer sur l'image pour lancer l'action  
 
 #### Sons 🔊
 Ici sont répertoriées les différents sons nécessaires :  
