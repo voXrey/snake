@@ -10,7 +10,7 @@ Le jeu sera développé avec le langage **python** (`version 3.9`) et la fenêtr
 
 ### La fenêtre  
 * La fenêtre mesurera `1000px / 1000px` et la map de déplacement du serpent en fera `900px / 900px` (chaque case représente `45x45 px`)
-* Bouton pour le menu pause, score, temps... au dessus de la map
+* Bouton pour le menu pause, score, temps... autour de la map (position pas encore définie)
 
 ### La Map 🗺️
 * Elle sera modélisée par une liste de listes
