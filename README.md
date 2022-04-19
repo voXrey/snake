@@ -16,11 +16,11 @@ Le jeu sera développé avec le langage **python** (`version 3.9`) et la fenêtr
 * Elle sera modélisée par une liste de listes
 * Un 0 signifie que la case est vide
 * Un -1 siginifie que la case contient une pomme
-* Un tuple sgnifie qu'une partie du serpent est présente
+* Un entier supérieur à 0 correspond à un morceau de serpent  
 
 ### Le serpent 🐍
 * Chaque morceau de serpent est représenté par son numéro dans le tableau (>= 1)  
-* Le serpent est représentée par une instance de classe noommée **Snake**, elle est constamment présente dans le programme  
+* Le serpent est représenté par une instance de classe noommée **Snake**, elle est constamment présente dans le programme  
 &nbsp; **Attributs:**  
 &nbsp; - `corps` : contient le corps du serpent, liste de morceaux de corps  
 &nbsp; - `numero` : contient le numéro du serpent (utile si on ajoute un autre serpent  
@@ -48,7 +48,7 @@ Ici sont répertoriées les différentes images nécessaires :
 * Boutons = 1 image par bouton (commencer, recommencer, quitter, reprendre, pause), il faudra cliquer sur l'image pour lancer l'action  
 
 #### Sons 🔊
-Ici sont répertoriées les différents sons nécessaires :  
+Ici sont répertoriés les différents sons nécessaires :  
 * Sifflement = sifflements du serpent qui se déclenche aléatoirement (plusieurs sifflements enregistrés)  
 * Bruit de gloop = se déclenche lorsque le serpent mange une pomme (plusieurs gloops sont enregistrés)  
 * Boutons = bruit que font les boutons au clique  
