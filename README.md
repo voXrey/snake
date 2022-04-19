@@ -56,7 +56,7 @@ Ici sont répertoriées les différents sons nécessaires :
 ## Utilisation 📱
 
 ### Dépendances
-* Python 3.9
+*Aucune dépendance por le moment*
 
 ### Pas à pas 🏃‍♂️
 *Aucune version n'a encore été publiée*
