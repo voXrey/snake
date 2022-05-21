@@ -13,7 +13,6 @@ def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
     """
     return [[0 for i in range(colonnes)] for j in range(lignes)]
 
-
 def nouvelle_position(prochain_mouvement:str, serpent:Snake, tab:list[list[int]]) -> tuple[int]:
     """
     Calcule la prochaine position de la tête sur le tableau
@@ -39,7 +38,6 @@ def nouvelle_position(prochain_mouvement:str, serpent:Snake, tab:list[list[int]]
         pass
     elif prochain_mouvement == "droite":
         pass
-
 
 """
 def quitter():
