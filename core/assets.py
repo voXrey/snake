@@ -1,28 +1,25 @@
+from tkinter import PhotoImage
+
 class Assets(object):
     """Classe qui représente les paths des assets"""
 
-    MAP = "./core/assets/background/map.png"
-    QUADRILLAGE = "./core/assets/background/quadrillage.png"
-    POMME = "./core/assets/pomme.png"
+    def __init__(self) -> None:
+        self.MAP = PhotoImage(file="./core/assets/background/map.png")
+        #self.QUADRILLAGE = PhotoImage(file="./core/assets/background/quadrillage.png")
+        #self.POMME = PhotoImage(file="./core/assets/pomme.png")
 
-    BOUTON_QUITTER = "./core/assets/boutons/quitter.png"
-    BOUTON_COMMENCER = "./core/assets/boutons/commencer.png"
-    BOUTON_REPRENDRE = "./core/assets/boutons/reprendre.png"
-    BOUTON_PAUSE = "./core/assets/boutons/pause.png"
+        #self.BOUTON_QUITTER = PhotoImage(file="./core/assets/boutons/quitter.png")
+        #self.BOUTON_COMMENCER = PhotoImage(file="./core/assets/boutons/commencer.png")
+        #self.BOUTON_REPRENDRE = PhotoImage(file="./core/assets/boutons/reprendre.png")
+        #self.BOUTON_PAUSE = PhotoImage(file="./core/assets/boutons/pause.png")
 
-    TETE_HAUT = "./core/assets/snake/tete/haut.png"
-    TETE_BAS = "./core/assets/snake/tete/bas.png"
-    TETE_GAUCHE = "./core/assets/snake/tete/gauche.png"
-    TETE_DROITE = "./core/assets/snake/tete/droite.png"
-    CORPS_VERTICAL = "./core/assets/snake/corps/vertical.png"
-    CORPS_HORIZONTAL = "./core/assets/snake/corps/horizontal.png"
-    QUEUE_HAUT = "./core/assets/snake/queue/haut.png"
-    QUEUE_BAS = "./core/assets/snake/queue/bas.png"
-    QUEUE_GAUCHE = "./core/assets/snake/queue/gauche.png"
-    QUEUE_DROITE = "./core/assets/snake/queue/droite.png"
-
-    def __setattr__(self, *_):
-        """Afin de ne pas changer la valeur des variables par erreur"""
-        raise Exception("Tried to change the value of a constant")
-
-assets = Assets()
+        #self.TETE_HAUT = PhotoImage(file="./core/assets/snake/tete/haut.png")
+        #self.TETE_BAS = PhotoImage(file="./core/assets/snake/tete/bas.png")
+        #self.TETE_GAUCHE = PhotoImage(file="./core/assets/snake/tete/gauche.png")
+        #self.TETE_DROITE = PhotoImage(file="./core/assets/snake/tete/droite.png")
+        #self.CORPS_VERTICAL = PhotoImage(file="./core/assets/snake/corps/vertical.png")
+        #self.CORPS_HORIZONTAL = PhotoImage(file="./core/assets/snake/corps/horizontal.png")
+        #self.QUEUE_HAUT = PhotoImage(file="./core/assets/snake/queue/haut.png")
+        #self.QUEUE_BAS = PhotoImage(file="./core/assets/snake/queue/bas.png")
+        #self.QUEUE_GAUCHE = PhotoImage(file="./core/assets/snake/queue/gauche.png")
+        #self.QUEUE_DROITE = PhotoImage(file="./core/assets/snake/queue/droite.png")
