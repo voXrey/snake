@@ -45,4 +45,29 @@ def quitter():
 
 def commencer(creer_tableau):
     creer_tableau(20, 20)
+
+def afficher_serpent(tab, can):
+    # * x et y par taille case = 45 --> obtient coin en haut a gauche case
+    # --> pour bas/droite on f +45
+
+def angle_serpent(serpent, tab):
+
+
+def affichage_serpent(serpent, tab, angle_serpent):
+
+def apparition_pomme(tab):
+    # parcourt le tableau puis créer une liste des coos dispo (=0) puis avec
+    # random.choice on choit un x et un y où y'a rien et donc faire pop une pomme
+
+def afficher_pomme(tab):
+    # on prend l'emplacement du -1 puis on le mets sur le quadrillage
+
+def pause():
+
+
+def continuer():
+
+
+def clique_bouton():
+
 """
