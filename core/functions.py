@@ -1,3 +1,4 @@
+from tkinter import Canvas
 from core.classes import Snake
 
 def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
@@ -39,10 +40,11 @@ def nouvelle_position(prochain_mouvement:str, serpent:Snake, tab:list[list[int]]
     elif prochain_mouvement == "droite":
         pass
 
-"""
-def quitter():
-    afficher_canva(fen).quit
 
+def quitter(can:Canvas):
+    can.quit()
+
+"""
 def commencer(creer_tableau):
     creer_tableau(20, 20)
 

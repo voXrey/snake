@@ -1,6 +1,7 @@
-from tkinter import IntVar, Tk, PhotoImage, Canvas, NW
+from tkinter import IntVar, Tk, PhotoImage, Canvas, NW, Button
 import tkinter
 from core.assets import assets
+import core.functions as func
 
 def update_score(score_var:IntVar, score:int) -> None:
     """
@@ -13,7 +14,7 @@ def update_score(score_var:IntVar, score:int) -> None:
     actuel = score_var.get()
     score_var.set(actuel+score)
 
-def ajouter_boutons(can:Canvas) -> Canvas:
+def ajouter_boutons(can):
     """
     Ajoute les boutons au canvas
 
@@ -24,8 +25,16 @@ def ajouter_boutons(can:Canvas) -> Canvas:
         tkinter.Canvas: le canvas avec les boutons
     """
     # Crée le bouton quitter
-    quitter_button = Button(can, image = assets.BOUTON_QUITTER,
-    command= functions.quitter, w=800, l=100)
+    image = PhotoImage(assets.BOUTON_QUITTER)
+    quitter_button = Button(
+        can,
+        image=image,
+        command= lambda: func.quitter(can),
+        width=200,
+        height=100
+    )
+    quitter_button.pack()
+    """
     # Crée le bouton commencer
     commencer_button = PhotoImage(file=assets.BOUTON_COMMENCER)
     can.create_image(800, 200, image=commencer_button)
@@ -37,8 +46,7 @@ def ajouter_boutons(can:Canvas) -> Canvas:
     # Crée le bouton pause
     pause_button = PhotoImage(file=assets.BOUTON_PAUSE)
     can.create_image(800, 400, image=pause_button)
-
-    return can
+    """
 
 def creer_canvas(W:int, H:int, fen:tkinter.Tk) -> Canvas:
     """
@@ -63,7 +71,7 @@ def creer_canvas(W:int, H:int, fen:tkinter.Tk) -> Canvas:
     #can.create_image(0, 0, anchor=NW, image=quadrillage)
 
     # Ajout des boutons
-    can = ajouter_boutons(can)
+    #ajouter_boutons(can)
 
     can.pack()
     return can
