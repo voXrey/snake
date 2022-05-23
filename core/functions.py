@@ -45,7 +45,4 @@ def quitter():
 
 def commencer(creer_tableau):
     creer_tableau(20, 20)
-
-def recommencer(creer_tableau):
-    creer_tableau(20, 20)
 """
