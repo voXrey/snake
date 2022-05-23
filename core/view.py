@@ -1,6 +1,6 @@
 from tkinter import IntVar, Tk, PhotoImage, Canvas, NW
 import tkinter
-from assets import assets
+from core.assets import assets
 
 def update_score(score_var:IntVar, score:int) -> None:
     """
@@ -26,7 +26,6 @@ def ajouter_boutons(can:Canvas) -> Canvas:
     # Crée le bouton quitter
     quitter_button = PhotoImage(file=assets.BOUTON_QUITTER)
     can.create_image(800, 100, image=quitter_button)
-
     # Crée le bouton commencer
     commencer_button = PhotoImage(file=assets.BOUTON_COMMENCER)
     can.create_image(800, 200, image=commencer_button)
@@ -55,10 +54,13 @@ def creer_canvas(W:int, H:int, fen:tkinter.Tk) -> Canvas:
     """
     # Création du canvas
     can = Canvas(fen, width=W, height=H, bg = "#24222e")
-
+    
     # Ajout du quadrillage, map du jeu
-    quadrillage = PhotoImage(file=assets.BACKGROUND_SNAKE)
-    can.create_image(0, 0, anchor=NW, image=quadrillage)
+    map_ = PhotoImage(name="map", file=assets.MAP)
+    can.map = map_
+    #quadrillage = PhotoImage(file=assets.QUADRILLAGE)
+    can.create_image(0, 0, anchor=NW, image=map_)
+    #can.create_image(0, 0, anchor=NW, image=quadrillage)
 
     # Ajout des boutons
     can = ajouter_boutons(can)

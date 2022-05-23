@@ -1,7 +1,8 @@
 class Assets(object):
     """Classe qui représente les paths des assets"""
 
-    BACKGROUND_SNAKE = "./core/assets/background_snake.png"
+    MAP = "./core/assets/background/map.png"
+    QUADRILLAGE = "./core/assets/background/quadrillage.png"
     POMME = "./core/assets/pomme.png"
 
     BOUTON_QUITTER = "./core/assets/boutons/quitter.png"

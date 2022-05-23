@@ -1,4 +1,4 @@
-from classes import Snake
+from core.classes import Snake
 
 def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
     """
