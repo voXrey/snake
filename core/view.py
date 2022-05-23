@@ -24,8 +24,8 @@ def ajouter_boutons(can:Canvas) -> Canvas:
         tkinter.Canvas: le canvas avec les boutons
     """
     # Crée le bouton quitter
-    quitter_button = PhotoImage(file=assets.BOUTON_QUITTER)
-    can.create_image(800, 100, image=quitter_button)
+    quitter_button = Button(can, image = assets.BOUTON_QUITTER,
+    command= functions.quitter, w=800, l=100)
     # Crée le bouton commencer
     commencer_button = PhotoImage(file=assets.BOUTON_COMMENCER)
     can.create_image(800, 200, image=commencer_button)
