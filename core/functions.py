@@ -109,6 +109,9 @@ def deplacement():
     else:
         pass
 
+def quoi_afficher_corps(corps):
+    pass
+
 """
 def afficher_serpent(tab, can):
     # * x et y par taille case = 45 --> obtient coin en haut a gauche case

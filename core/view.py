@@ -3,6 +3,7 @@ from tkinter import NW, Button, Canvas, IntVar, PhotoImage, Tk
 
 import core.functions as func
 from core.assets import Assets
+from core.variables import game
 from tkinter import Event
 
 
@@ -65,3 +66,7 @@ def creer_fenetre() -> Tk:
     fen.title("Snake")
     
     return fen
+
+def afficher_serpent():
+    corps = game["serpent"].corps
+    a_afficher = func.quoi_afficher_corps(corps)

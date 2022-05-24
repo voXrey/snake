@@ -8,11 +8,6 @@ class Assets(object):
         #self.QUADRILLAGE = PhotoImage(file="./core/assets/background/quadrillage.png")
         #self.POMME = PhotoImage(file="./core/assets/pomme.png")
 
-        #self.BOUTON_QUITTER = PhotoImage(file="./core/assets/boutons/quitter.png")
-        #self.BOUTON_COMMENCER = PhotoImage(file="./core/assets/boutons/commencer.png")
-        #self.BOUTON_REPRENDRE = PhotoImage(file="./core/assets/boutons/reprendre.png")
-        #self.BOUTON_PAUSE = PhotoImage(file="./core/assets/boutons/pause.png")
-
         #self.TETE_HAUT = PhotoImage(file="./core/assets/snake/tete/haut.png")
         #self.TETE_BAS = PhotoImage(file="./core/assets/snake/tete/bas.png")
         #self.TETE_GAUCHE = PhotoImage(file="./core/assets/snake/tete/gauche.png")
