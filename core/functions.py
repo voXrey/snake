@@ -1,4 +1,5 @@
 from tkinter import Canvas
+from core.variables import game
 from core.classes import Snake
 
 def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
@@ -41,13 +42,22 @@ def nouvelle_position(prochain_mouvement:str, serpent:Snake, tab:list[list[int]]
         pass
 
 
-def quitter(can:Canvas):
-    can.quit()
+def quitter():
+    exit()
+
+def commencer():
+    game["tab"] = creer_tableau(20, 20)
+    game["tab"][game["depart"][0]][game["depart"][1]] = 1
+    game["serpent"] = Snake(1, game["depart"])
+
+def pause():
+    game["pause"] = not game["pause"]
+
+def bouger(direction:str):
+    game["direction"] = direction
+
 
 """
-def commencer(creer_tableau):
-    creer_tableau(20, 20)
-
 def afficher_serpent(tab, can):
     # * x et y par taille case = 45 --> obtient coin en haut a gauche case
     # --> pour bas/droite on f +45
@@ -63,13 +73,5 @@ def apparition_pomme(tab):
 
 def afficher_pomme(tab):
     # on prend l'emplacement du -1 puis on le mets sur le quadrillage
-
-def pause():
-
-
-def continuer():
-
-
-def clique_bouton():
 
 """

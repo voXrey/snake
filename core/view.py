@@ -3,6 +3,7 @@ from tkinter import NW, Button, Canvas, IntVar, PhotoImage, Tk
 
 import core.functions as func
 from core.assets import Assets
+from tkinter import Event
 
 
 def update_score(score_var:IntVar, score:int) -> None:
@@ -15,6 +16,20 @@ def update_score(score_var:IntVar, score:int) -> None:
     """
     actuel = score_var.get()
     score_var.set(actuel+score)
+
+def touche(event:Event):
+    key = event.keysym
+    options = {
+        "Up": lambda: func.bouger("Up"),
+        "Down": lambda: func.bouger("Down"),
+        "Left": lambda: func.bouger("Left"),
+        "Right": lambda: func.bouger("Right"),
+        "q": lambda: func.quitter(),
+        "s":  lambda: func.commencer(),
+        "space": lambda: func.pause(),
+        "Escape": lambda: func.pause(),
+    }
+    options[key]()
 
 def creer_canvas(W:int, H:int, fen:tkinter.Tk, assets:Assets) -> Canvas:
     """
