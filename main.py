@@ -17,7 +17,7 @@ fen = view.creer_fenetre()
 assets = Assets()
 
 # Création du canvas
-can = view.creer_canvas(1000, 1000, fen, assets)
+can = view.creer_canvas(900, 1300, fen, assets)
 
 # On lance la fenêtre
 fen.mainloop()
