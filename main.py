@@ -12,6 +12,7 @@ fen = view.creer_fenetre()
 
 # Création des assets
 assets = Assets()
+game["assets"] = assets
 
 # On ajoute les évènements
 fen.bind("<Key>", view.touche)

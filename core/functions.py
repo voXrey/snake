@@ -1,4 +1,5 @@
 from tkinter import Canvas
+from core.assets import Assets
 from core.variables import game
 from core.classes import Snake
 
@@ -53,15 +54,35 @@ def commencer():
 def pause():
     game["pause"] = not game["pause"]
 
+
+def directions_frame(n:int):
+    frame = game["serpent"].corps[n]
+    frame_position = frame.position
+    frame_suivante_position = frame.suivant
+    frame_precedente_position = frame.precedent
+
+    suivante_direction = None
+    precedente_direction = None
+
+    if frame_suivante_position is None: pass
+    else:
+        if frame_suivante_position[0] < frame_position[0]: suivante_direction = "Down"
+        elif frame_suivante_position[0] > frame_position[0]: suivante_direction = "Up"
+        elif frame_suivante_position[1] < frame_position[1]: suivante_direction = "Right"
+        else: suivante_direction = "Left"
+
+    if frame_precedente_position is None: pass
+    else:
+        if frame_precedente_position[0] < frame_position[0]: precedente_direction = "Up"
+        elif frame_precedente_position[0] > frame_position[0]: precedente_direction = "Down"
+        elif frame_precedente_position[1] < frame_position[1]: precedente_direction = "Left"
+        else: precedente_direction = "Right"
+
+    return (precedente_direction, suivante_direction)
+
 def bouger(direction:str):
-    derniere_position = game["serpent"].corps[0].position
-    avant_derniere_position = game["serpent"].corps[1].position
-    
-    direction_actuelle = None
-    if avant_derniere_position[0] < derniere_position[0]: direction_actuelle = "Down"
-    elif avant_derniere_position[0] > derniere_position[0]: direction_actuelle = "Up"
-    elif avant_derniere_position[1] < derniere_position[1]: direction_actuelle = "Right"
-    elif avant_derniere_position[1] > derniere_position[1]: direction_actuelle = "Left"
+    directions = directions_frame(0)
+    direction_actuelle = directions[1]
 
     up_down = ["Up", "Down"]
     left_right = ["Left", "Right"]
@@ -88,7 +109,7 @@ def coordonnees():
         l, c = tete_position
         c -= 1
         prochaine_position = (l, c)
-    elif direction == "Right":
+    else:
         l, c = tete_position
         c += 1
         prochaine_position = (l, c)
@@ -107,12 +128,50 @@ def deplacement():
     if collision:
         game["serpent"].avancer(coords, game["tab"], False)
     else:
-        pass
+        print("dead")
 
 def quoi_afficher_corps(corps):
     resultats = []
-    for frame in corps:
-        pass        
+    corps_count = len(corps)
+    case_pixels = 45
+    assets:Assets = game["assets"]
+
+    i = 0
+    while i < corps_count:
+        frame = corps[i]
+        position = frame.position
+        coords = (position[1]*case_pixels, position[0]*case_pixels)
+        image = None
+        dir_p, dir_s = directions_frame(i)
+
+        if dir_p == dir_s:
+            vertical = ["Up", "Down"]
+            if dir_p in vertical: image = assets.CORPS_VERTICAL
+            else: image = assets.CORPS_HORIZONTAL
+        
+        elif  dir_p is None:
+            if dir_s == "Up": image = assets.TETE_HAUT
+            elif dir_s == "Down": image = assets.TETE_BAS
+            elif dir_s == "Left": image = assets.TETE_GAUCHE
+            else: image = assets.TETE_DROITE
+
+        elif dir_s is None:
+            if dir_p == "Up": image = assets.QUEUE_HAUT
+            elif dir_p == "Down": image = assets.QUEUE_BAS
+            elif dir_p == "Left": image = assets.QUEUE_GAUCHE
+            else: image = assets.QUEUE_DROITE
+
+        else:
+            up_right = ["Up", "Right"]
+            right_down = ["Right", "Down"]
+            down_left = ["Down", "Left"]
+            if (dir_p in up_right) and (dir_s in up_right): image = assets.ANGLE_NE
+            elif (dir_p in right_down) and (dir_s in right_down): image = assets.ANGLE_SE
+            elif (dir_p in down_left) and (dir_s in down_left): image = assets.ANGLE_SW
+            else: image = assets.ANGLE_NW
+        
+        resultats.append(coords, image)
+        i += 1
 
     return resultats
 

@@ -7,5 +7,6 @@ game = {
     "depart": DEPART,
     "depart2": DEPART2,
     "pause": False,
-    "direction": "Up"
+    "direction": "Up",
+    "assets": None
 }
