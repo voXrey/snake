@@ -110,7 +110,11 @@ def deplacement():
         pass
 
 def quoi_afficher_corps(corps):
-    pass
+    resultats = []
+    for frame in corps:
+        pass        
+
+    return resultats
 
 """
 def afficher_serpent(tab, can):

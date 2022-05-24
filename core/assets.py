@@ -18,3 +18,8 @@ class Assets(object):
         #self.QUEUE_BAS = PhotoImage(file="./core/assets/snake/queue/bas.png")
         #self.QUEUE_GAUCHE = PhotoImage(file="./core/assets/snake/queue/gauche.png")
         #self.QUEUE_DROITE = PhotoImage(file="./core/assets/snake/queue/droite.png")
+        #self.ANGLE_NW = PhotoImage(file="./core/assets/snake/angles/nw.png")
+        #self.ANGLE_NE = PhotoImage(file="./core/assets/snake/angles/ne.png")
+        #self.ANGLE_SW = PhotoImage(file="./core/assets/snake/angles/sw.png")
+        #self.ANGLE_SE = PhotoImage(file="./core/assets/snake/angles/se.png")
+
