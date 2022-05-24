@@ -16,19 +16,37 @@ class SnakeFrame:
 
 class Snake:
     """Cette classe représente le serpent"""
-    def __init__(self, numero:int, position_tete:tuple[int]):
+    def __init__(self, numero:int, position_tete:tuple[int], position_queue:tuple[int]=None):
         """
         Args:
             numero (int): numéro du serpent
             position_tete (tuple[int]): position de la tête du serpent
+            position_queue (tuple[int]): position de la queue du serpent
         """
         self.numero:int = numero
-        self.corps = [SnakeFrame(
-            serpent=numero,
-            position=position_tete,
-            precedent=None,
-            suivant=None
-        )]
+
+        if position_queue is None:
+            self.corps = [SnakeFrame(
+                serpent=numero,
+                position=position_tete,
+                precedent=None,
+                suivant=None
+            )]
+        
+        else:
+            self.corps = [SnakeFrame(
+                serpent=numero,
+                position=position_tete,
+                precedent=None,
+                suivant=position_queue
+            ),
+            SnakeFrame(
+                serpent=numero,
+                position=position_queue,
+                precedent=position_tete,
+                suivant=None
+            )]
+        
 
     def collision(self, prochaine_position_tete:tuple[int], tab:list[list[int]]):
         """
