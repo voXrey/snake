@@ -11,8 +11,8 @@ Ce tableau sera mis à jour au fur et à mesure, toutes les fonctions qui seront
 Le jeu sera développé avec le langage **python** (`version 3.9`) et la fenêtre graphique sera créée à partir de la librairie `tkinter`.
 
 ### La fenêtre  
-* La fenêtre mesurera `1000px / 1000px` et la map de déplacement du serpent en fera `900px / 900px` (chaque case représente `45x45 px`)
-* Bouton pour le menu pause, score, temps... autour de la map (position pas encore définie)
+* La fenêtre mesurera `900px / 1300px` et la map de déplacement du serpent en fera `900px / 900px` (chaque case représente `45x45 px`)
+* Des touches du clavier seront attribués à des actions comme quitter, commencer, pause, ... autour de la map (qui occupe la partie gauche de la fenêtre)
 
 ### La Map 🗺️
 * Elle sera modélisée par une liste de listes
