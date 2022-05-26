@@ -1,4 +1,4 @@
-from tkinter import Canvas
+from tkinter import NW, Canvas
 from core.assets import Assets
 from core.variables import game
 from core.classes import Snake
@@ -16,33 +16,6 @@ def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
     """
     return [[0 for i in range(colonnes)] for j in range(lignes)]
 
-def nouvelle_position(prochain_mouvement:str, serpent:Snake, tab:list[list[int]]) -> tuple[int]:
-    """
-    Calcule la prochaine position de la tête sur le tableau
-
-    Args:
-        prochain_mouvement (str): direction vers laquelle part le serpent
-        serpent (Snake): le serpent
-        tab (list[list[int]]): tableau du jeu
-
-    Returns:
-        tuple[int]: prochaine position de la têtes
-    """
-    # On récupère la position actuelle de la tête du serpent
-    position_tete = serpent.corps[0].position
-
-    # On teste la variable prochain_mouvement pour connaître
-    # la direction du serpent
-    if prochain_mouvement == "haut":
-        pass
-    elif prochain_mouvement == "bas":
-        pass
-    elif prochain_mouvement == "gauche":
-        pass
-    elif prochain_mouvement == "droite":
-        pass
-
-
 def quitter():
     exit()
 
@@ -54,8 +27,7 @@ def commencer():
 def pause():
     game["pause"] = not game["pause"]
 
-
-def directions_frame(n:int):
+def cote_frames(n:int):
     frame = game["serpent"].corps[n]
     frame_position = frame.position
     frame_suivante_position = frame.suivant
@@ -64,13 +36,6 @@ def directions_frame(n:int):
     suivante_direction = None
     precedente_direction = None
 
-    if frame_suivante_position is None: pass
-    else:
-        if frame_suivante_position[0] < frame_position[0]: suivante_direction = "Down"
-        elif frame_suivante_position[0] > frame_position[0]: suivante_direction = "Up"
-        elif frame_suivante_position[1] < frame_position[1]: suivante_direction = "Right"
-        else: suivante_direction = "Left"
-
     if frame_precedente_position is None: pass
     else:
         if frame_precedente_position[0] < frame_position[0]: precedente_direction = "Up"
@@ -78,10 +43,17 @@ def directions_frame(n:int):
         elif frame_precedente_position[1] < frame_position[1]: precedente_direction = "Left"
         else: precedente_direction = "Right"
 
+    if frame_suivante_position is None: pass
+    else:
+        if frame_suivante_position[0] < frame_position[0]: suivante_direction = "Up"
+        elif frame_suivante_position[0] > frame_position[0]: suivante_direction = "Down"
+        elif frame_suivante_position[1] < frame_position[1]: suivante_direction = "Left"
+        else: suivante_direction = "Right"
+
     return (precedente_direction, suivante_direction)
 
 def bouger(direction:str):
-    directions = directions_frame(0)
+    directions = cote_frames(0)
     direction_actuelle = directions[1]
 
     up_down = ["Up", "Down"]
@@ -96,39 +68,35 @@ def coordonnees():
     direction = game["direction"]
 
     # On détermine temporairement la prochaine position
-    prochaine_position = None
+    l, c = tete_position
     if direction == "Up":
-        l, c = tete_position
         l -= 1
-        prochaine_position = (l, c)
     elif direction == "Down":
-        l, c = tete_position
         l += 1
-        prochaine_position = (l, c)
     elif direction == "Left":
-        l, c = tete_position
         c -= 1
-        prochaine_position = (l, c)
     else:
-        l, c = tete_position
         c += 1
-        prochaine_position = (l, c)
     
     # On le place de l'autre côté de la map si le serpent la dépasse
-    if prochaine_position[0] < 0: prochaine_position[0] = 19
-    elif prochaine_position[0] > 19: prochaine_position[0] = 0
-    elif prochaine_position[1] < 0: prochaine_position[1] = 19
-    elif prochaine_position[1] > 19: prochaine_position[1] = 0
+    if l < 0: l = 19
+    elif l > 19: l = 0
+    elif c < 0: c = 19
+    elif c > 19: c = 0
 
-    return prochaine_position
+    return (l, c)
 
-def deplacement():
+def deplacement(can:Canvas):
     coords = coordonnees()
     collision = game["serpent"].collision(coords, game["tab"])
-    if collision:
-        game["serpent"].avancer(coords, game["tab"], False)
+    if not collision:
+        game["serpent"].avancer(coords, game["tab"], True)
     else:
         print("dead")
+
+    supprimer_elements(can)
+    afficher_elements(can)
+    can.after(game["delai"], lambda: deplacement(can))
 
 def quoi_afficher_corps(corps):
     resultats = []
@@ -136,24 +104,29 @@ def quoi_afficher_corps(corps):
     case_pixels = 45
     assets:Assets = game["assets"]
 
+    vertical = ["Up", "Down"]
+    horizontal = ["Left", "Right"]
+    up_right = ["Up","Right"]
+    down_right = ["Down", "Right"]
+    down_left = ["Down", "Left"]
+
     i = 0
     while i < corps_count:
         frame = corps[i]
         position = frame.position
         coords = (position[1]*case_pixels, position[0]*case_pixels)
         image = None
-        dir_p, dir_s = directions_frame(i)
+        dir_p, dir_s = cote_frames(i)
+        print(f"{i}: {dir_p}:{dir_s}")
 
-        if dir_p == dir_s:
-            vertical = ["Up", "Down"]
-            if dir_p in vertical: image = assets.CORPS_VERTICAL
-            else: image = assets.CORPS_HORIZONTAL
+        if (dir_p in vertical) and (dir_s in vertical): image = assets.CORPS_VERTICAL
+        elif (dir_p in horizontal) and (dir_s in horizontal): image = assets.CORPS_HORIZONTAL
         
         elif  dir_p is None:
-            if dir_s == "Up": image = assets.TETE_HAUT
-            elif dir_s == "Down": image = assets.TETE_BAS
-            elif dir_s == "Left": image = assets.TETE_GAUCHE
-            else: image = assets.TETE_DROITE
+            if dir_s == "Up": image = assets.TETE_BAS
+            elif dir_s == "Down": image = assets.TETE_HAUT
+            elif dir_s == "Left": image = assets.TETE_DROITE
+            else: image = assets.TETE_GAUCHE
 
         elif dir_s is None:
             if dir_p == "Up": image = assets.QUEUE_HAUT
@@ -162,29 +135,31 @@ def quoi_afficher_corps(corps):
             else: image = assets.QUEUE_DROITE
 
         else:
-            up_right = ["Up", "Right"]
-            right_down = ["Right", "Down"]
-            down_left = ["Down", "Left"]
             if (dir_p in up_right) and (dir_s in up_right): image = assets.ANGLE_NE
-            elif (dir_p in right_down) and (dir_s in right_down): image = assets.ANGLE_SE
+            elif (dir_p in down_right) and (dir_s in down_right): image = assets.ANGLE_SE
             elif (dir_p in down_left) and (dir_s in down_left): image = assets.ANGLE_SW
             else: image = assets.ANGLE_NW
         
-        resultats.append(coords, image)
+        resultats.append((coords, image))
         i += 1
 
     return resultats
 
+def supprimer_elements(can:Canvas):
+    can.delete('all')
+
+def afficher_elements(can:Canvas):
+    assets:Assets = game["assets"]
+    can.create_image(0, 0, anchor=NW, image=assets.MAP)
+
+    corps = quoi_afficher_corps(game["serpent"].corps)
+    
+    for coords, image in corps:
+        x, y = coords
+        can.create_image(x, y, image=image)
+
+
 """
-def afficher_serpent(tab, can):
-    # * x et y par taille case = 45 --> obtient coin en haut a gauche case
-    # --> pour bas/droite on f +45
-
-def angle_serpent(serpent, tab):
-
-
-def affichage_serpent(serpent, tab, angle_serpent):
-
 def apparition_pomme(tab):
     # parcourt le tableau puis créer une liste des coos dispo (=0) puis avec
     # random.choice on choit un x et un y où y'a rien et donc faire pop une pomme

@@ -79,6 +79,7 @@ class Snake:
         # On place la nouvelle tête au debut de la liste représentant lecorps du serpent
         self.corps.insert(0, SnakeFrame(
             serpent=self.numero,
+            position=nouvelle_position_tete,
             precedent=None,
             suivant=self.corps[0].position
         ))

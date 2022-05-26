@@ -30,7 +30,7 @@ def touche(event:Event):
         "space": lambda: func.pause(),
         "Escape": lambda: func.pause(),
     }
-    options[key]()
+    if key in options: options[key]()
 
 def creer_canvas(W:int, H:int, fen:tkinter.Tk, assets:Assets) -> Canvas:
     """
@@ -66,7 +66,3 @@ def creer_fenetre() -> Tk:
     fen.title("Snake")
     
     return fen
-
-def afficher_serpent():
-    corps = game["serpent"].corps
-    a_afficher = func.quoi_afficher_corps(corps)

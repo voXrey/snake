@@ -8,5 +8,6 @@ game = {
     "depart2": DEPART2,
     "pause": False,
     "direction": "Up",
-    "assets": None
+    "assets": None,
+    "delai": 1000
 }

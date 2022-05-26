@@ -18,10 +18,10 @@ game["assets"] = assets
 fen.bind("<Key>", view.touche)
 
 # Création du canvas
-can = view.creer_canvas(900, 1300, fen, assets)
+can = view.creer_canvas(1300, 900, fen, assets)
 
 # On appelle la fonction de déplacement en boucle
-fen.after(game["delai"], functions.deplacement)
+fen.after(game["delai"], lambda:functions.deplacement(can))
 
 # On lance la fenêtre
 fen.mainloop()
