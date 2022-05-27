@@ -9,5 +9,6 @@ game = {
     "pause": False,
     "direction": "Up",
     "assets": None,
-    "delai": 1000
+    "delai": 1000,
+    "pomme": None
 }

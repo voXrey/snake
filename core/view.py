@@ -64,5 +64,7 @@ def creer_fenetre() -> Tk:
     #Créer la base de l'interface
     fen = Tk()
     fen.title("Snake")
+    fen.iconbitmap("./core/assets/icon/icon.ico")
+    fen.attributes('-fullscreen', True)
     
     return fen

@@ -6,7 +6,7 @@ class Assets(object):
     def __init__(self) -> None:
         self.MAP = PhotoImage(file="./core/assets/background/map.png")
         #self.QUADRILLAGE = PhotoImage(file="./core/assets/background/quadrillage.png")
-        #self.POMME = PhotoImage(file="./core/assets/pomme.png")
+        self.POMME = PhotoImage(file="./core/assets/pomme.png")
 
         self.TETE_HAUT = PhotoImage(file="./core/assets/snake/tete/haut.png")
         self.TETE_BAS = PhotoImage(file="./core/assets/snake/tete/bas.png")

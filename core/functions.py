@@ -1,7 +1,13 @@
+import random
 from tkinter import NW, Canvas
 from core.assets import Assets
 from core.variables import game
 from core.classes import Snake
+
+def aff():
+    for ligne in game["tab"]:
+        print(ligne)
+    print("-----------------------------------")
 
 def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
     """
@@ -20,9 +26,17 @@ def quitter():
     exit()
 
 def commencer():
-    game["tab"] = creer_tableau(20, 20)
-    game["tab"][game["depart"][0]][game["depart"][1]] = 1
+    game["tab"] = creer_tableau(19, 19)
+
+    depart_l, depart_c = game["depart"]
+    depart2_l, depart2_c = game["depart2"]
+    game["tab"][depart_l][depart_c] = 1
+    game["tab"][depart2_l][depart2_c] = 1
+    
     game["serpent"] = Snake(1, game["depart"], game["depart2"])
+    game["direction"] = "Up"
+    
+    apparition_pomme()
 
 def pause():
     game["pause"] = not game["pause"]
@@ -79,18 +93,22 @@ def coordonnees():
         c += 1
     
     # On le place de l'autre côté de la map si le serpent la dépasse
-    if l < 0: l = 19
-    elif l > 19: l = 0
-    elif c < 0: c = 19
-    elif c > 19: c = 0
+    if l < 0: l = 18
+    elif l > 18: l = 0
+    elif c < 0: c = 18
+    elif c > 18: c = 0
 
     return (l, c)
 
 def deplacement(can:Canvas):
     coords = coordonnees()
     collision = game["serpent"].collision(coords, game["tab"])
+
     if not collision:
-        game["serpent"].avancer(coords, game["tab"], True)
+        pomme = (-1 == game["tab"][coords[0]][coords[1]])
+        game["serpent"].avancer(coords, game["tab"], pomme)
+        if pomme:
+            apparition_pomme()
     else:
         print("dead")
 
@@ -117,7 +135,6 @@ def quoi_afficher_corps(corps):
         coords = (position[1]*case_pixels, position[0]*case_pixels)
         image = None
         dir_p, dir_s = cote_frames(i)
-        print(f"{i}: {dir_p}:{dir_s}")
 
         if (dir_p in vertical) and (dir_s in vertical): image = assets.CORPS_VERTICAL
         elif (dir_p in horizontal) and (dir_s in horizontal): image = assets.CORPS_HORIZONTAL
@@ -149,22 +166,28 @@ def supprimer_elements(can:Canvas):
     can.delete('all')
 
 def afficher_elements(can:Canvas):
+    case_pixels = 45
+
     assets:Assets = game["assets"]
     can.create_image(0, 0, anchor=NW, image=assets.MAP)
 
+    pomme_ligne, pomme_colonne = game["pomme"]
+    can.create_image(pomme_colonne*case_pixels, pomme_ligne*case_pixels, anchor=NW, image=assets.POMME)
+
     corps = quoi_afficher_corps(game["serpent"].corps)
-    
     for coords, image in corps:
         x, y = coords
-        can.create_image(x, y, image=image)
+        can.create_image(x, y, anchor=NW, image=image)
 
+def apparition_pomme():
+    places = []
+    disponnible = 0
+    for ligne in range(19):
+        for colonne in range(19):
+            if game["tab"][ligne][colonne] == disponnible:
+                places.append((ligne, colonne))
 
-"""
-def apparition_pomme(tab):
-    # parcourt le tableau puis créer une liste des coos dispo (=0) puis avec
-    # random.choice on choit un x et un y où y'a rien et donc faire pop une pomme
-
-def afficher_pomme(tab):
-    # on prend l'emplacement du -1 puis on le mets sur le quadrillage
-
-"""
+    pomme_place = random.choice(places)
+    ligne, colonne = pomme_place
+    game["tab"][ligne][colonne] = -1
+    game["pomme"] = pomme_place
