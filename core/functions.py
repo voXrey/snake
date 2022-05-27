@@ -50,16 +50,33 @@ def cote_frames(n:int):
     suivante_direction = None
     precedente_direction = None
 
+    lignes_colonnes_count = 18
+    oppose_lignes_colonnes_count = -lignes_colonnes_count
+
     if frame_precedente_position is None: pass
     else:
-        if frame_precedente_position[0] < frame_position[0]: precedente_direction = "Up"
+        diff_l = frame_precedente_position[0]-frame_position[0]
+        diff_c = frame_precedente_position[1]-frame_position[1]
+
+        if diff_l == lignes_colonnes_count: precedente_direction = "Up"
+        elif diff_l == oppose_lignes_colonnes_count: precedente_direction = "Down"
+        elif diff_c == lignes_colonnes_count: precedente_direction = "Left"
+        elif diff_c == oppose_lignes_colonnes_count: precedente_direction = "Right"
+        elif frame_precedente_position[0] < frame_position[0]: precedente_direction = "Up"
         elif frame_precedente_position[0] > frame_position[0]: precedente_direction = "Down"
         elif frame_precedente_position[1] < frame_position[1]: precedente_direction = "Left"
         else: precedente_direction = "Right"
 
     if frame_suivante_position is None: pass
     else:
-        if frame_suivante_position[0] < frame_position[0]: suivante_direction = "Up"
+        diff_l = frame_suivante_position[0]-frame_position[0]
+        diff_c = frame_suivante_position[1]-frame_position[1]
+
+        if diff_l == lignes_colonnes_count: suivante_direction = "Up"
+        elif diff_l == oppose_lignes_colonnes_count: suivante_direction = "Down"
+        elif diff_c == lignes_colonnes_count: suivante_direction = "Left"
+        elif diff_c == oppose_lignes_colonnes_count: suivante_direction = "Right"
+        elif frame_suivante_position[0] < frame_position[0]: suivante_direction = "Up"
         elif frame_suivante_position[0] > frame_position[0]: suivante_direction = "Down"
         elif frame_suivante_position[1] < frame_position[1]: suivante_direction = "Left"
         else: suivante_direction = "Right"
@@ -101,19 +118,21 @@ def coordonnees():
     return (l, c)
 
 def deplacement(can:Canvas):
-    coords = coordonnees()
-    collision = game["serpent"].collision(coords, game["tab"])
+    if not game["pause"]:
+        coords = coordonnees()
+        collision = game["serpent"].collision(coords, game["tab"])
 
-    if not collision:
-        pomme = (-1 == game["tab"][coords[0]][coords[1]])
-        game["serpent"].avancer(coords, game["tab"], pomme)
-        if pomme:
-            apparition_pomme()
-    else:
-        print("dead")
+        if not collision:
+            pomme = (-1 == game["tab"][coords[0]][coords[1]])
+            game["serpent"].avancer(coords, game["tab"], pomme)
+            if pomme:
+                apparition_pomme()
+                augmenter_difficulte()
+        else:
+            print("dead")
 
-    supprimer_elements(can)
-    afficher_elements(can)
+        supprimer_elements(can)
+        afficher_elements(can)
     can.after(game["delai"], lambda: deplacement(can))
 
 def quoi_afficher_corps(corps):
@@ -191,3 +210,10 @@ def apparition_pomme():
     ligne, colonne = pomme_place
     game["tab"][ligne][colonne] = -1
     game["pomme"] = pomme_place
+
+def augmenter_difficulte():
+    future_delai = game["delai"]-(game["difficulte"]*15)
+    if future_delai <= 25:
+        game["delai"] = 25
+    else:
+        game["delai"] = future_delai
