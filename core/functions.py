@@ -1,5 +1,5 @@
 import random
-from tkinter import NW, Canvas
+from tkinter import NW, Canvas, IntVar
 from core.assets import Assets
 from core.variables import game
 from core.classes import Snake
@@ -8,6 +8,15 @@ def aff():
     for ligne in game["tab"]:
         print(ligne)
     print("-----------------------------------")
+
+def update_score(score:int) -> None:
+    """
+    Met à jour le score
+
+    Args:
+        score (int): score à ajouter
+    """
+    game["score"] += score
 
 def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
     """
@@ -35,6 +44,8 @@ def commencer():
     
     game["serpent"] = Snake(1, game["depart"], game["depart2"])
     game["direction"] = "Up"
+
+    game["score"] = 0
     
     apparition_pomme()
 
@@ -128,6 +139,7 @@ def deplacement(can:Canvas):
             if pomme:
                 apparition_pomme()
                 augmenter_difficulte()
+                update_score(10*game["difficulte"])
         else:
             print("dead")
 
@@ -197,6 +209,8 @@ def afficher_elements(can:Canvas):
     for coords, image in corps:
         x, y = coords
         can.create_image(x, y, anchor=NW, image=image)
+    
+    can.create_text(960, 30, text=f"Score: {str(game['score']).zfill(3)}", font=('Fixedsys', 20, 'bold'), justify='left', fill='white', )
 
 def apparition_pomme():
     places = []
@@ -213,7 +227,7 @@ def apparition_pomme():
 
 def augmenter_difficulte():
     future_delai = game["delai"]-(game["difficulte"]*15)
-    if future_delai <= 25:
-        game["delai"] = 25
+    if future_delai <= 10:
+        game["delai"] = 10
     else:
         game["delai"] = future_delai

@@ -1,22 +1,10 @@
 import tkinter
-from tkinter import NW, Button, Canvas, IntVar, PhotoImage, Tk
+from tkinter import NW, Button, Canvas, IntVar, Label, PhotoImage, Tk
 
 import core.functions as func
 from core.assets import Assets
 from core.variables import game
 from tkinter import Event
-
-
-def update_score(score_var:IntVar, score:int) -> None:
-    """
-    Met à jour le score
-
-    Args:
-        score_var (IntVar): variable tkinter du score
-        score (int): score à ajouter
-    """
-    actuel = score_var.get()
-    score_var.set(actuel+score)
 
 def touche(event:Event):
     key = event.keysym

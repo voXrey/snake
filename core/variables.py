@@ -11,5 +11,6 @@ game = {
     "assets": None,
     "delai": 500,
     "pomme": None,
-    "difficulte": 1
+    "difficulte": 1,
+    "score": None
 }
