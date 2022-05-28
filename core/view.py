@@ -2,35 +2,47 @@ import tkinter
 from tkinter import NW, Canvas, Event, Tk
 
 import core.functions as func
-from core.assets import Assets
 
 
 def touche(event:Event):
+    """
+    Cette fonction se déclenche quand une touche du clavier
+    est appuyées ce qui permet ensuite de trier les touches
+    attendues de celles inattendues et de réagir en fonction
+
+    Args:
+        event (Event): évènement tkinter
+    """
+    # Récupérer le nom de la touche appuyée
     key = event.keysym
-    options = {
-        "Up": lambda: func.bouger("Up"),
-        "Down": lambda: func.bouger("Down"),
-        "Left": lambda: func.bouger("Left"),
-        "Right": lambda: func.bouger("Right"),
+    # Création des différentes actions en fonction
+    # de la touche appuyée 
+    actions = {
+        "Up": lambda: func.changer_direction("Up"),
+        "Down": lambda: func.changer_direction("Down"),
+        "Left": lambda: func.changer_direction("Left"),
+        "Right": lambda: func.changer_direction("Right"),
         "q": lambda: func.quitter(),
         "s":  lambda: func.commencer(),
         "space": lambda: func.pause(),
         "Escape": lambda: func.pause(),
     }
-    if key in options: options[key]()
+    # Ne tente de déclencher l'action que si la touche
+    # est attendue, sinon ne fait rien
+    if key in actions: actions[key]()
 
-def creer_canvas(W:int, H:int, fen:tkinter.Tk, assets:Assets) -> Canvas:
+def creer_canvas(W:int, H:int, fen:tkinter.Tk, assets) -> Canvas:
     """
     Créer le canvas principal du jeu
 
     Args:
-        W (int): largeur
-        H (int): hauteur
-        fen (tkinter.Tk): fenêtre du jeu
-        assets (Assets): les assets
+        W (int): largeur du canvas
+        H (int): hauteur du canvas
+        fen (tkinter.Tk): fenêtre principale du jeu
+        assets: les assets du jeu
 
     Returns:
-        Canvas: le canvas du jeu
+        Canvas: canvas principal
     """
     # Création du canvas
     can = Canvas(fen, width=W, height=H, bg = "#24222e")
@@ -50,8 +62,8 @@ def creer_fenetre() -> Tk:
     """
     #Créer la base de l'interface
     fen = Tk()
-    fen.title("Snake")
-    fen.iconbitmap("./core/assets/icon/icon.ico")
-    fen.attributes('-fullscreen', True)
+    fen.title("Snake") # Changement du noom de la fenêtre
+    fen.iconbitmap("./core/assets/icon/icon.ico") # Changement du l'icone de la fenêtre
+    fen.attributes('-fullscreen', True) # Mettre la fenêtre en plein écran
     
     return fen

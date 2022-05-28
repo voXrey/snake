@@ -13,12 +13,14 @@ fen = view.creer_fenetre()
 variables.assets = Assets()
 
 # On ajoute les évènements
-fen.bind("<Key>", view.touche)
+fen.bind("<Key>", view.touche) # Celui-ci se déclenche quand un touche du clavier est appuyée
 
 # Création du canvas
 can = view.creer_canvas(variables.W_CANVAS, variables.H_CANVAS, fen, variables.assets)
 
 # On appelle la fonction de déplacement en boucle
+# c'est également elle qui s'occupe des autres
+# mises à jour du canvas tel que l'affichage des éléments
 fen.after(variables.delai, lambda:functions.deplacement(can))
 
 # On lance la fenêtre
