@@ -1,10 +1,9 @@
 import tkinter
-from tkinter import NW, Button, Canvas, IntVar, Label, PhotoImage, Tk
+from tkinter import NW, Canvas, Event, Tk
 
 import core.functions as func
 from core.assets import Assets
-from core.variables import game
-from tkinter import Event
+
 
 def touche(event:Event):
     key = event.keysym

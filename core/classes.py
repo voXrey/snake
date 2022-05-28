@@ -1,4 +1,3 @@
-
 class SnakeFrame:
     """Cette classe représente un morceau du corps du serpent"""
     def __init__(self, serpent:int, position:tuple[int], precedent:tuple[int], suivant:tuple[int]):

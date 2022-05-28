@@ -1,11 +1,13 @@
 import random
-from tkinter import NW, Canvas, IntVar
+from tkinter import NW, Canvas
+
+import core.variables as variables
 from core.assets import Assets
-from core.variables import game
 from core.classes import Snake
 
+
 def aff():
-    for ligne in game["tab"]:
+    for ligne in variables.tab:
         print(ligne)
     print("-----------------------------------")
 
@@ -16,7 +18,7 @@ def update_score(score:int) -> None:
     Args:
         score (int): score à ajouter
     """
-    game["score"] += score
+    variables.score += score
 
 def creer_tableau(lignes:int, colonnes:int) -> list[list[int]]:
     """
@@ -35,25 +37,25 @@ def quitter():
     exit()
 
 def commencer():
-    game["tab"] = creer_tableau(19, 19)
+    variables.tab = creer_tableau(19, 19)
 
-    depart_l, depart_c = game["depart"]
-    depart2_l, depart2_c = game["depart2"]
-    game["tab"][depart_l][depart_c] = 1
-    game["tab"][depart2_l][depart2_c] = 1
+    depart_l, depart_c = variables.DEPART
+    depart2_l, depart2_c = variables.DEPART2
+    variables.tab[depart_l][depart_c] = 1
+    variables.tab[depart2_l][depart2_c] = 1
     
-    game["serpent"] = Snake(1, game["depart"], game["depart2"])
-    game["direction"] = "Up"
+    variables.serpent = Snake(1, variables.DEPART, variables.DEPART2)
+    variables.direction = "Up"
 
-    game["score"] = 0
+    variables.score = 0
     
     apparition_pomme()
 
 def pause():
-    game["pause"] = not game["pause"]
+    variables.pause = not variables.pause
 
 def cote_frames(n:int):
-    frame = game["serpent"].corps[n]
+    frame = variables.serpent.corps[n]
     frame_position = frame.position
     frame_suivante_position = frame.suivant
     frame_precedente_position = frame.precedent
@@ -103,11 +105,11 @@ def bouger(direction:str):
     if (direction in up_down) and (direction_actuelle in up_down): return
     elif (direction in left_right) and (direction_actuelle in left_right): return
 
-    game["direction"] = direction
+    variables.direction = direction
 
 def coordonnees():
-    tete_position = game["serpent"].corps[0].position
-    direction = game["direction"]
+    tete_position = variables.serpent.corps[0].position
+    direction = variables.direction
 
     # On détermine temporairement la prochaine position
     l, c = tete_position
@@ -129,29 +131,29 @@ def coordonnees():
     return (l, c)
 
 def deplacement(can:Canvas):
-    if not game["pause"]:
+    if not variables.pause:
         coords = coordonnees()
-        collision = game["serpent"].collision(coords, game["tab"])
+        collision = variables.serpent.collision(coords, variables.tab)
 
         if not collision:
-            pomme = (-1 == game["tab"][coords[0]][coords[1]])
-            game["serpent"].avancer(coords, game["tab"], pomme)
+            pomme = (-1 == variables.tab[coords[0]][coords[1]])
+            variables.serpent.avancer(coords, variables.tab, pomme)
             if pomme:
                 apparition_pomme()
                 augmenter_difficulte()
-                update_score(10*game["difficulte"])
+                update_score(10*variables.difficulte)
         else:
             print("dead")
 
         supprimer_elements(can)
         afficher_elements(can)
-    can.after(game["delai"], lambda: deplacement(can))
+    can.after(variables.delai, lambda: deplacement(can))
 
 def quoi_afficher_corps(corps):
     resultats = []
     corps_count = len(corps)
     case_pixels = 45
-    assets:Assets = game["assets"]
+    assets:Assets = variables.assets
 
     vertical = ["Up", "Down"]
     horizontal = ["Left", "Right"]
@@ -199,35 +201,35 @@ def supprimer_elements(can:Canvas):
 def afficher_elements(can:Canvas):
     case_pixels = 45
 
-    assets:Assets = game["assets"]
+    assets:Assets = variables.assets
     can.create_image(0, 0, anchor=NW, image=assets.MAP)
 
-    pomme_ligne, pomme_colonne = game["pomme"]
+    pomme_ligne, pomme_colonne = variables.pomme
     can.create_image(pomme_colonne*case_pixels, pomme_ligne*case_pixels, anchor=NW, image=assets.POMME)
 
-    corps = quoi_afficher_corps(game["serpent"].corps)
+    corps = quoi_afficher_corps(variables.serpent.corps)
     for coords, image in corps:
         x, y = coords
         can.create_image(x, y, anchor=NW, image=image)
     
-    can.create_text(960, 30, text=f"Score: {str(game['score']).zfill(3)}", font=('Fixedsys', 20, 'bold'), justify='left', fill='white', )
+    can.create_text(960, 30, text=f"Score: {str(variables.score).zfill(3)}", font=('Fixedsys', 20, 'bold'), justify='left', fill='white', )
 
 def apparition_pomme():
     places = []
     disponnible = 0
     for ligne in range(19):
         for colonne in range(19):
-            if game["tab"][ligne][colonne] == disponnible:
+            if variables.tab[ligne][colonne] == disponnible:
                 places.append((ligne, colonne))
 
     pomme_place = random.choice(places)
     ligne, colonne = pomme_place
-    game["tab"][ligne][colonne] = -1
-    game["pomme"] = pomme_place
+    variables.tab[ligne][colonne] = -1
+    variables.pomme = pomme_place
 
 def augmenter_difficulte():
-    future_delai = game["delai"]-(game["difficulte"]*15)
+    future_delai = variables.delai-(variables.difficulte*15)
     if future_delai <= 10:
-        game["delai"] = 10
+        variables.delai = 10
     else:
-        game["delai"] = future_delai
+        variables.delai = future_delai
