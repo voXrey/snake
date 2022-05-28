@@ -1,6 +1,7 @@
 import random
 from tkinter import NW, Canvas
 
+import core.sons as sons
 import core.variables as variables
 from core.assets import Assets
 from core.classes import Snake
@@ -210,12 +211,13 @@ def deplacement(can:Canvas):
             # S'il a mangé une pomme, une autre spawn, le score
             # augmente et le delai diminue pour rendre le
             # jeu plus difficile
+            sons.manger()
             apparition_pomme()
             augmenter_difficulte()
             # Le score ajouté dépend de la difficulté choisie
             update_score(int((10*variables.difficulte)*1.5))
         
-        if collision:
+        elif collision:
             # S'il y a eu une collision met le jeu
             # sur un écran de fin et attend qu'on appuie sur
             # start pour recommencer
@@ -225,6 +227,14 @@ def deplacement(can:Canvas):
             print(variables.score)
             commencer()
             pause()
+            sons.mort()
+
+        else:
+            # Le serpent va bien, il joue
+            # peut-être un son
+            r = random.randint(0, 60)
+            if r == 0:
+                sons.psss()
 
         # Mettre à jour les éléments du canvas
         supprimer_elements(can)
@@ -387,7 +397,7 @@ def augmenter_difficulte():
     # Calcul du futur délai en fonction de la dicculté et du délai actuel
     future_delai = variables.delai-(variables.difficulte*15)
     # Il ne peut être en-dessous de d'un certain seuil
-    seuil = (100/variables.difficulte)
+    seuil = (100//variables.difficulte)
     if future_delai <= seuil:
         variables.delai = seuil
     else:

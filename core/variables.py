@@ -14,5 +14,5 @@ direction = 'Up'
 assets = None
 delai = 500
 pomme = None
-difficulte = 1
+difficulte = 3
 score = None
