@@ -333,8 +333,29 @@ def afficher_elements(can:Canvas):
     can.create_text(
         960,
         30,
-        text=f"Score: {str(variables.score).zfill(3)}",
-        font=('Fixedsys', 20, 'bold'),
+        text=f"Score: {str(variables.score).zfill(4)}",
+        font=variables.SCORE_FONT,
+        justify='left',
+        fill='white',
+    )
+
+    # Ajout du texte d'informations
+    texte = f"""
+        Difficulté : {variables.difficulte}
+
+        <S> : Recommencer
+        <Q> : Quitter
+        <Echap>/<Espace> : Pause
+
+        Utilise les flèches
+        de ton clavier
+        pour te déplacer
+    """
+    can.create_text(
+        960,
+        140,
+        text=texte,
+        font=variables.INFO_FONT,
         justify='left',
         fill='white',
     )

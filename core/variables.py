@@ -4,6 +4,8 @@ W_CANVAS = 1300
 H_CANVAS = 855
 LIGNES_COLONNES = 19
 PIXELS_CASE = 45
+SCORE_FONT = ('Fixedsys', 20, 'bold')
+INFO_FONT = ('Fixedsys', 14, 'bold')
 
 tab = None
 serpent = None
