@@ -59,7 +59,9 @@ class Snake:
             True: Il y a une collision
             False: Il n'y a pas de collision
         """
-        return tab[prochaine_position_tete[0]][prochaine_position_tete[1]] not in [-1, 0]
+        queue_position = self.corps[-1].position
+        if queue_position == prochaine_position_tete: return False
+        return () and (tab[prochaine_position_tete[0]][prochaine_position_tete[1]] not in [-1, 0])
 
     def avancer(self, nouvelle_position_tete:tuple[int], tab:list[list[int]], agrandir:bool=False):
         """
